@@ -1,0 +1,7 @@
+sudo: required #super level permission for builds
+services:
+  - docker # to install docker
+before_install: 
+   - docker build -t elaheabs/docker-react -f Dockerfile.dev . #build the docker file and tag the image
+script:
+   - docker run -e CI=true elaheabs/docker-react npm run test #to run docker but changed the default command to run tests but we added -e CI=true to give us a report of tests at the end instead of waiting for user input
