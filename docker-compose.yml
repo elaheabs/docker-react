@@ -1,0 +1,22 @@
+version: "3"
+services:
+  web:
+    build:
+      context: . #this specifies from which dir files should be retrived
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000" #localport:containerport
+
+    volumes:
+      - /app/node_modules # to avoid mapping node_modules
+      - .:/app # to map . into /app inside container => appDir:containerDir
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"] #overriding the default command of the docker file
